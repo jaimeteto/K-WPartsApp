@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/linear_layout_border">
+
+    <TextView
+        android:id="@+id/textViewJobNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello, TextView 1"
+        android:textSize="18sp"
+        android:padding="10dp" />
+
+
+    <TextView
+        android:id="@+id/textViewInsuranceName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello, TextView 2"
+        android:textSize="18sp"
+        android:padding="10dp" />
+
+
+    <TextView
+        android:id="@+id/textViewCustomerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello, TextView 3"
+        android:textSize="18sp"
+        android:padding="10dp" />
+
+</LinearLayout>

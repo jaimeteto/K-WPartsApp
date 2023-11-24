@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "318619627545",
+    "project_id": "kw-parts-app",
+    "storage_bucket": "kw-parts-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:318619627545:android:9760483c778cca8a293a88",
+        "android_client_info": {
+          "package_name": "com.example.project3"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlKv9L6N5qJnhFe7UeeYC6_XAykOysUOw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
