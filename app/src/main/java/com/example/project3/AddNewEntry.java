@@ -38,10 +38,71 @@ public class AddNewEntry extends AppCompatActivity {
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                submitJobInfo();
-                finish();
+                // Assuming submitJobInfo is an asynchronous operation
+                submitJobInfo(new OnDatabaseOperationCompleteListener() {
+                    @Override
+                    public void onDatabaseOperationComplete() {
+                        // The database operation is complete
+                        // Now, start the new activity
+
+                        Intent intent = new Intent(AddNewEntry.this, MainActivity.class);
+                        // Add any additional flags or data to the Intent if needed
+
+                        // Start the main activity
+                        startActivity(intent);
+                        finish();
+                    }
+                });
             }
         });
+    }
+    private void submitJobInfo(final OnDatabaseOperationCompleteListener listener) {
+        // Assume this method involves an asynchronous operation, like adding an entry to the database
+
+        // Simulate an asynchronous operation with a delay
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // Perform the asynchronous operation
+                // ...
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                String jobNumber = editTextJobNumber.getText().toString().trim();
+                String insuranceName = editTextInsuranceName.getText().toString().trim();
+                String customerName = editTextCustomerName.getText().toString().trim();
+
+                // Create a JSON object with the entered data
+                JSONObject jobInfoJson = new JSONObject();
+                try {
+                    jobInfoJson.put("jobNumber", jobNumber);
+                    jobInfoJson.put("insuranceName", insuranceName);
+                    jobInfoJson.put("customerName", customerName);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                // Upload the JSON object to Firebase Storage
+                uploadJsonToStorage(user.getUid(),jobNumber + ".json", jobInfoJson.toString());
+
+
+                // Simulate completion
+                try {
+                    Thread.sleep(2000); // Simulating a 2-second delay
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                // Notify the listener that the database operation is complete
+                if (listener != null) {
+                    listener.onDatabaseOperationComplete();
+                }
+            }
+        }).start();
+    }
+
+    // Callback interface
+    interface OnDatabaseOperationCompleteListener {
+        void onDatabaseOperationComplete();
     }
     @Override
     public void onBackPressed() {
@@ -56,26 +117,7 @@ public class AddNewEntry extends AppCompatActivity {
         // Finish the current activity (optional, depending on your use case)
         finish();
     }
-    private void submitJobInfo() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        String jobNumber = editTextJobNumber.getText().toString().trim();
-        String insuranceName = editTextInsuranceName.getText().toString().trim();
-        String customerName = editTextCustomerName.getText().toString().trim();
-
-        // Create a JSON object with the entered data
-        JSONObject jobInfoJson = new JSONObject();
-        try {
-            jobInfoJson.put("jobNumber", jobNumber);
-            jobInfoJson.put("insuranceName", insuranceName);
-            jobInfoJson.put("customerName", customerName);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        // Upload the JSON object to Firebase Storage
-        uploadJsonToStorage(user.getUid(),jobNumber + ".json", jobInfoJson.toString());
-    }
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
@@ -89,7 +131,11 @@ public class AddNewEntry extends AppCompatActivity {
         uploadTask.addOnSuccessListener(taskSnapshot -> {
             // JSON file uploaded successfully
             showToast("Upload successful");
-            // You may want to show a success message or navigate to another screen
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("newFileName", fileName);
+            setResult(RESULT_OK, resultIntent);
+            finish();
+
 
         }).addOnFailureListener(exception -> {
             // Handle any errors

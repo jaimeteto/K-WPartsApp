@@ -7,6 +7,12 @@ android {
     namespace = "com.example.project3"
     compileSdk = 34
 
+    packagingOptions {
+        resources {
+            excludes.add("META-INF/DEPENDENCIES")
+        }
+    }
+
     defaultConfig {
         applicationId = "com.example.project3"
         minSdk = 29
@@ -43,7 +49,8 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.6.0"))
     implementation ("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-storage")
-    implementation("org.apache.pdfbox:pdfbox:3.0.0")
+    implementation ("com.itextpdf:itextg:5.5.10")
+
 
 
 
