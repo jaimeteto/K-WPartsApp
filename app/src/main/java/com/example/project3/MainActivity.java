@@ -38,7 +38,10 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonLogout;
     private static final int ADD_NEW_ENTRY_REQUEST_CODE = 1001;
 
+    private static final int BARCODE_REQUEST_CODE = 1002;
+
     private Button buttonAdd;
+    private Button buttonScan;
 
     private FirebaseAuth mAuth;
     private RecyclerView recyclerView;
@@ -57,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         buttonLogout = findViewById(R.id.buttonLogout);
         buttonAdd = findViewById(R.id.add);
+        buttonScan = findViewById(R.id.scanBarCode);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new MyAdapter();
@@ -87,7 +91,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(MainActivity.this, AddNewEntry.class);
-                startActivityForResult(intent, ADD_NEW_ENTRY_REQUEST_CODE);
+                startActivityForResult(intent, BARCODE_REQUEST_CODE);
+
+            }
+        });
+        buttonScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity.this, ScanBarCode.class);
+                startActivity(intent);
+                //startActivityForResult(intent, ADD_NEW_ENTRY_REQUEST_CODE);
 
             }
         });

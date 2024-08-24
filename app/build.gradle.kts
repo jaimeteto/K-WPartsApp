@@ -36,6 +36,9 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        viewBinding =true
+    }
 }
 
 dependencies {
@@ -50,6 +53,21 @@ dependencies {
     implementation ("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-storage")
     implementation ("com.itextpdf:itextg:5.5.10")
+    implementation ("com.google.mlkit:barcode-scanning:17.2.0")
+    implementation ("com.journeyapps:zxing-android-embedded:4.2.0")
+
+
+    implementation ("androidx.camera:camera-core:1.2.2")
+    implementation ("androidx.camera:camera-camera2:1.2.2")
+    implementation ("androidx.camera:camera-lifecycle:1.2.2")
+    implementation ("androidx.camera:camera-video:1.2.2")
+
+    implementation ("androidx.camera:camera-view:1.2.2")
+    implementation ("androidx.camera:camera-extensions:1.2.2")
+
+
+
+
 
 
 
